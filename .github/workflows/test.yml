@@ -12,4 +12,4 @@ jobs:
         env:
           HOST: ubuntu-host
           USER: chandika
-	  	    MSG: "Welcome to Github Actions"
+	  MSG: "Welcome to Github Actions"
