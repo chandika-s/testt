@@ -10,6 +10,5 @@ jobs:
       - name: Running a shell script that will print the value of environment variables
         run: sh print.sh
         env:
-          TEST_HOST: ubuntu-host
-          TEST_PORT: 9999
-	  TEST_MSG: "Welcome to Github Actions"
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
