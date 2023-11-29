@@ -11,5 +11,5 @@ jobs:
         run: sh print.sh
         env:
           HOST: ubuntu-host
-          USER: chandika
+          PORT: 9999
 	  MSG: "Welcome to Github Actions"
