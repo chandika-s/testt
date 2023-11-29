@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "The host name is $HOST"
+echo "Postgres host is $POSTGRES_HOST"
 
-echo "User working in this host is $USER"
+echo "Postgres port is $POSTGRES_PORT"
 
 echo "$MSG"
