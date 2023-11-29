@@ -1,0 +1,15 @@
+on: [push]
+    
+jobs:
+  github-action-blog:
+    runs-on: ubuntu-latest
+	  steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Running a shell script that will print the value of environment variables
+        run: sh print.sh
+        env:
+          HOST: ubuntu-host
+          USER: chandika
+	  	    MSG: "Welcome to Github Actions"
