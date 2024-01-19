@@ -3,6 +3,10 @@ jobs:
   testjob:
     docker:
       - image: alpine:3.15
+    environment:
+      POSTGRES_HOST: 'chandika.tech'
+      POSTGRES_PORT: '2209'
+      MSG: 'How are you?'
     steps:
       - checkout
       - run:
@@ -10,6 +14,10 @@ jobs:
           command: |
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
+      - run:
+          name: Execute script
+          command: |
+            sh print.sh
 workflows:
   testwf:
     jobs:
