@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  test:
+  testjob:
     docker:
       - image: alpine:3.15
     steps:
@@ -11,12 +11,13 @@ jobs:
             echo 'Hello World!'
             echo 'This is the delivery pipeline'
 workflows:
-  build:
+  testwf:
     jobs:
-      - test:
-          tags:
-            only: /^test.*/
-          branches:
-            ignore: /.*/
+      - testjob:
+          filters:
+            tags:
+              only: /^test.*/
+            branches:
+              ignore: /.*/
               
         
