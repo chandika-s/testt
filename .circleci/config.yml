@@ -3,10 +3,12 @@ jobs:
   testjob:
     docker:
       - image: alpine:3.15
+
     environment:
       POSTGRES_HOST: 'chandika.tech'
       POSTGRES_PORT: '2209'
       MSG: 'How are you?'
+
     steps:
       - checkout
       - run:
@@ -18,9 +20,27 @@ jobs:
           name: Execute script
           command: |
             sh print.sh
+
+  send-notification:
+    docker:
+      - image: cimg/base:2024.01
+
+    steps:
+      - run:
+          name: Notify Google Chat
+          command: |
+            curl -X POST -H "Content-Type: application/json" \
+              -d '{"text": "CircleCI job completed started!"}' \
+              $GOOGLE_CHAT_WEBHOOK_URL
+
 workflows:
   testwf:
     jobs:
+      - send-notification:
+          filters:
+            branches:
+              ignore: /^test.*/
+              
       - testjob:
           filters:
             tags:
