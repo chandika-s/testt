@@ -39,18 +39,15 @@ workflows:
       - send-notification:
           filters:
             branches:
-              ignore: /^test.*/
+              only: /^stg.*/
       - production-deployment-approval:
           type: approval
           filters:
             branches:
-              ignore: /^test.*/
+              only: /^stg.*/
               
       - testjob:
           filters:
-            tags:
-              only: /^test.*/
             branches:
-              ignore: /.*/
-              
+              only: /^stg.*/
         
