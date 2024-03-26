@@ -38,19 +38,22 @@ workflows:
     jobs:
       - send-notification:
           filters:
+            tags:
+              only: /^test.*/
             branches:
-              ignore: /^test.*/
+              only: /^staging/sprint-.*/
       - production-deployment-approval:
           type: approval
           filters:
+            tags:
+              only: /^test.*/
             branches:
-              ignore: /^test.*/
+              only: /^staging/sprint-.*/
               
       - testjob:
           filters:
             tags:
               only: /^test.*/
             branches:
-              ignore: /.*/
-              
+              only: /^staging/sprint-.*/
         
