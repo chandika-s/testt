@@ -37,7 +37,7 @@ workflows:
   testwf:
     jobs:
       - send-notification:
-          filters:
+          filters: &filters-staging
             tags:
               only: /^test.*/
             branches:
@@ -45,15 +45,9 @@ workflows:
       - production-deployment-approval:
           type: approval
           filters:
-            tags:
-              only: /^test.*/
-            branches:
-              only: /^staging/sprint-.*/
+            <<: *filters-staging
               
       - testjob:
           filters:
-            tags:
-              only: /^test.*/
-            branches:
-              only: /^staging/sprint-.*/
+            <<: *filters-staging
         
