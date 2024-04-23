@@ -30,7 +30,20 @@ jobs:
           name: Notify Google Chat
           command: |
             curl -X POST -H "Content-Type: application/json" \
-            -d '{"text": "🚀 *A Staging\/Production deployment job has been started!"}' \
+            -d '{"text": "🚀 *A Staging\/Production deployment job has started!"}' \
+            $GOOGLE_CHAT_WEBHOOK_URL
+
+
+  send-success-notification:
+    docker:
+      - image: cimg/base:2024.01
+
+    steps:
+      - run:
+          name: Notify Google Chat
+          command: |
+            curl -X POST -H "Content-Type: application/json" \
+            -d '{"text": "🎉 *A Staging\/Production deployment job has succeeded!"}' \
             $GOOGLE_CHAT_WEBHOOK_URL
 
 
@@ -47,6 +60,12 @@ workflows:
           type: approval
           filters:
             <<: *filters-staging
+       - send-success-notification:
+          filters: &filters-staging
+            tags:
+              only: /^test.*/
+            branches:
+              only: /^staging/sprint-.*/
               
       - testjob:
           filters:
