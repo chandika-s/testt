@@ -21,6 +21,10 @@ jobs:
           command: |
             sh print.sh
 
+
+      - run:
+          command: echo $CIRCLE_BRANCH
+
   send-start-notification:
     docker:
       - image: cimg/base:2024.01
