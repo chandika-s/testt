@@ -38,8 +38,8 @@ jobs:
           name: Notify Google Chat
           command: |
              curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\":\"$message\"}" \
-            "$GOOGLE_CHAT_WEBHOOK_URL"
+             -d "{\"text\":\"$message\"}" \
+             "$GOOGLE_CHAT_WEBHOOK_URL"
           environment:
             CIRCLE_BRANCH: $CIRCLE_BRANCH
             CIRCLE_JOB: $CIRCLE_JOB
