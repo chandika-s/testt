@@ -69,12 +69,6 @@ workflows:
           type: approval
           filters:
             <<: *filters-staging
-      - send-success-notification:
-          filters: &filters-staging
-            tags:
-              only: /^test.*/
-            branches:
-              only: /^staging/sprint-.*/
               
       - testjob:
           filters:
