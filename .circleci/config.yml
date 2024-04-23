@@ -30,8 +30,9 @@ jobs:
           name: Notify Google Chat
           command: |
             curl -X POST -H "Content-Type: application/json" \
-              -d '{"text": ("🚀 *"+ "A Staging/Production deployment job has been started!")}' \
-              $GOOGLE_CHAT_WEBHOOK_URL
+            -d '{"text": "🚀 *A Staging\/Production deployment job has been started!"}' \
+            $GOOGLE_CHAT_WEBHOOK_URL
+
 
 workflows:
   testwf:
