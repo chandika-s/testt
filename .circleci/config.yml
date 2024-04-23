@@ -21,7 +21,7 @@ jobs:
           command: |
             sh print.sh
 
-  send-notification:
+  send-start-notification:
     docker:
       - image: cimg/base:2024.01
 
@@ -30,13 +30,13 @@ jobs:
           name: Notify Google Chat
           command: |
             curl -X POST -H "Content-Type: application/json" \
-              -d '{"text": "CircleCI job completed started!"}' \
+              -d '{"text": ("🚀 *"+ "A Staging/Production deployment job has been started!")}' \
               $GOOGLE_CHAT_WEBHOOK_URL
 
 workflows:
   testwf:
     jobs:
-      - send-notification:
+      - send-start-notification:
           filters: &filters-staging
             tags:
               only: /^test.*/
