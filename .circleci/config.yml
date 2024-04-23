@@ -31,13 +31,13 @@ jobs:
 
     steps:
       - run:
-          command: echo $CIRCLE_BRANCH
-      - run:
-          name: Notify Google Chat
           command: |
             message="🎉 A Staging deployment job has started: branch: ${CIRCLE_BRANCH}, job: ${CIRCLE_JOB}, url: ${CIRCLE_BUILD_URL}"
             echo $message
-            curl -X POST -H "Content-Type: application/json" \
+      - run:
+          name: Notify Google Chat
+          command: |
+             curl -X POST -H "Content-Type: application/json" \
             -d "{\"text\":\"$message\"}" \
             "$GOOGLE_CHAT_WEBHOOK_URL"
           environment:
