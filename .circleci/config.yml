@@ -60,7 +60,7 @@ workflows:
           type: approval
           filters:
             <<: *filters-staging
-       - send-success-notification:
+      - send-success-notification:
           filters: &filters-staging
             tags:
               only: /^test.*/
