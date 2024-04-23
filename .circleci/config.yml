@@ -29,9 +29,9 @@ jobs:
       - run:
           name: Notify Google Chat
           command: |
-            curl -X POST -H "Content-Type: application/json" \ 
-            -d "{\"cards\":[{\"header\":{\"title\":\"Build ${CIRCLE_BUILD_NUM} passed.\",\"subtitle\":\"${CIRCLE_PROJECT_REPONAME}\",\"imageUrl\":\"https://png.pngtree.com/svg/20170510/success_404253.png\",\"imageStyle\":\"IMAGE\"},\"sections\":[{\"widgets\":[{\"keyValue\":{\"topLabel\":\"${CIRCLE_TAG}\",\"content\":\"${CIRCLE_SHA1}\"}}]},{\"widgets\":[{\"buttons\":[{\"textButton\":{\"text\":\"DETAILS\",\"onClick\":{\"openLink\":{\"url\":\"${CIRCLE_BUILD_URL}\"}}}}]}]}]}]}" \
-            $GOOGLE_CHAT_WEBHOOK_URL
+            curl -X POST -H "Content-Type: application/json" \
+            -d '{"cards":[{"header":{"title":"Build '${CIRCLE_BUILD_NUM}' passed.","subtitle":"'"${CIRCLE_PROJECT_REPONAME}"'","imageUrl":"https://png.pngtree.com/svg/20170510/success_404253.png","imageStyle":"IMAGE"},"sections":[{"widgets":[{"keyValue":{"topLabel":"'"${CIRCLE_TAG}"'","content":"'"${CIRCLE_SHA1}"'"}}]},{"widgets":[{"buttons":[{"textButton":{"text":"DETAILS","onClick":{"openLink":{"url":"'"${CIRCLE_BUILD_URL}"'"}}}}]}]}]}' \
+            "$GOOGLE_CHAT_WEBHOOK_URL"
 
 
   send-success-notification:
