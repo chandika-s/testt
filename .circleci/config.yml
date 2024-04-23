@@ -30,10 +30,14 @@ jobs:
           name: Notify Google Chat
           command: |
             curl -X POST -H "Content-Type: application/json" \
-            -d "{\"text\":\"$message\"}" \
+            -d "{\"text\":\"🎉 A Staging deployment job has started: branch '$CIRCLE_BRANCH', job: '$CIRCLE_JOB', url: '$CIRCLE_BUILD_URL'\"}" \
             "$GOOGLE_CHAT_WEBHOOK_URL"
           environment:
-            message: "🎉 A Staging deployment job has started: branch '$CIRCLE_BRANCH' \n job: '$CIRCLE_JOB' \n url: '$CIRCLE_BUILD_URL'"
+            GOOGLE_CHAT_WEBHOOK_URL: $GOOGLE_CHAT_WEBHOOK_URL
+            CIRCLE_BRANCH: $CIRCLE_BRANCH
+            CIRCLE_JOB: $CIRCLE_JOB
+            CIRCLE_BUILD_URL: $CIRCLE_BUILD_URL
+
 
 
   send-success-notification:
