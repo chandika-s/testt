@@ -35,8 +35,6 @@ jobs:
           environment:
             message: "🎉 A Staging deployment job has started: branch '$CIRCLE_BRANCH' \n job: '$CIRCLE_JOB' \n url: '$CIRCLE_BUILD_URL'"
 
-"
-
 
   send-success-notification:
     docker:
