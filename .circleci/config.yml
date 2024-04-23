@@ -11,20 +11,16 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: The First Step
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+    #  - run:
+        #  name: The First Step
+        #  command: |
+         #   echo 'Hello World!'
+         #   echo 'This is the delivery pipeline'
       - run:
           name: Execute script
           command: |
-            sh print.sh
-
-
-      - run:
-          command: echo $CIRCLE_BRANCH
-
+            sh print.sh1
+      
   send-start-notification:
     docker:
       - image: cimg/base:2024.01
@@ -57,18 +53,6 @@ jobs:
 
 
 
-  send-success-notification:
-    docker:
-      - image: cimg/base:2024.01
-
-    steps:
-      - run:
-          name: Notify Google Chat
-          command: |
-            curl -X POST -H "Content-Type: application/json" \
-            -d '{"text": "🎉 *A Staging\/Production deployment job has succeeded!"}' \
-            $GOOGLE_CHAT_WEBHOOK_URL
-
 
 workflows:
   testwf:
@@ -79,6 +63,8 @@ workflows:
               only: /^test.*/
             branches:
               only: /^staging/sprint-.*/
+                  
+                  
       - production-deployment-approval:
           type: approval
           filters:
@@ -93,4 +79,19 @@ workflows:
       - testjob:
           filters:
             <<: *filters-staging
+          post-steps:
+            - run:
+                name: send success notify
+                command: |
+                  curl -X POST -H 'Content-Type: application/json' \
+                  -d '{"text":"🎉 A Staging deployment job has succeeded:\n branch: '${CIRCLE_BRANCH}', \n pipeline: '${CIRCLE_PIPELINE_ID}', \n url: '${CIRCLE_BUILD_URL}'"}' \
+                  "$GOOGLE_CHAT_WEBHOOK_URL"
+                when: on_success
+            - run:
+                name: send failure notify
+                command: |
+                  curl -X POST -H 'Content-Type: application/json' \
+                  -d '{"text":"🎉 A Staging deployment job has failed:\n branch: '${CIRCLE_BRANCH}', \n pipeline: '${CIRCLE_PIPELINE_ID}', \n url: '${CIRCLE_BUILD_URL}'"}' \
+                  "$GOOGLE_CHAT_WEBHOOK_URL"
+                when: on_fail
         
