@@ -12,7 +12,7 @@ jobs:
       - run:
           name: The First Step
           command: |
-            curl -L --request GET --url https://google.com
+            curl -L --request GET --url https://wework.co.jp
 
 workflows:
   testwf:
