@@ -2,52 +2,23 @@ version: 2.1
 jobs:
   testjob:
     docker:
-      - image: alpine:3.15
-
-    environment:
-      POSTGRES_HOST: 'chandika.tech'
-      POSTGRES_PORT: '2209'
-      MSG: 'How are you?'
-
+      - image: circleci/node:16.13.1-bullseye-browsers-legacy
     steps:
       - checkout
       - run:
           name: The First Step
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
-      - run:
-          name: Execute script
-          command: |
-            sh print.sh
-
-  send-notification:
-    docker:
-      - image: cimg/base:2024.01
-
-    steps:
-      - run:
-          name: Notify Google Chat
-          command: |
-            curl -X POST -H "Content-Type: application/json" \
-              -d '{"text": "CircleCI job completed started!"}' \
-              $GOOGLE_CHAT_WEBHOOK_URL
+            curl --request GET \
+  --url https://cms.stg.wework.co.jp/wp-json/api/v3/general-information \
+  --header 'api-secret-key: ttlab1234'
 
 workflows:
   testwf:
-    jobs:
-      - send-notification:
+    jobs:     
+      - testjob:
           filters: &filters-staging
             tags:
               only: /^test.*/
             branches:
               only: /^staging/sprint-.*/
-      - production-deployment-approval:
-          type: approval
-          filters:
-            <<: *filters-staging
-              
-      - testjob:
-          filters:
-            <<: *filters-staging
         
