@@ -8,9 +8,7 @@ jobs:
       - run:
           name: The First Step
           command: |
-            curl --request GET \
-  --url https://cms.stg.wework.co.jp/wp-json/api/v3/general-information \
-  --header 'api-secret-key: ttlab1234'
+            curl --request GET --url https://cms.stg.wework.co.jp/wp-json/api/v3/general-information --header 'api-secret-key: ttlab1234'
 
 workflows:
   testwf:
@@ -20,5 +18,7 @@ workflows:
             tags:
               only: /^test.*/
             branches:
-              only: /^staging/sprint-.*/
+              only: 
+                - /^staging/sprint-.*/
+                - main
         
