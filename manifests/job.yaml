@@ -16,6 +16,6 @@ spec:
         - |
           curl -X POST -H 'Content-type: application/json' \
           --data '{"text":"✅ ArgoCD Sync completed successfully!"}' \
-          https://hooks.slack.com/services/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
+          https://hooks.slack.com/services/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
       restartPolicy: Never
   backoffLimit: 1
