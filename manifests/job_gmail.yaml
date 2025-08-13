@@ -25,13 +25,13 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
-          apk add --no-cache msmtp-mta
+          apk add --no-cache msmtp
           echo "Subject: ArgoCD Deployment Success" > /tmp/message.txt
           echo "" >> /tmp/message.txt
           echo "✅ ArgoCD Sync completed successfully!" >> /tmp/message.txt
           msmtp --host=smtp.gmail.com --port=587 --auth=on \
-            --user="$GMAIL_USER" --password="$GMAIL_PASS" \
-            --tls=on erchandika92yahoo.com < /tmp/message.txt
+          --user="$GMAIL_USER" --password="$GMAIL_PASS" \
+          --tls=on recipient@example.com < /tmp/message.txt
         env:
         - name: GMAIL_USER
           valueFrom:
