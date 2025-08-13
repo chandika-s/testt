@@ -33,7 +33,7 @@ spec:
           account default : gmail
           EOF
 
-          echo -e "Subject: ArgoCD Deployment Success\n\n✅ ArgoCD Sync completed successfully!" | msmtp recipient@example.com
+          echo -e "Subject: ArgoCD Deployment Success\n\n✅ ArgoCD Sync completed successfully!" | msmtp erchandika92@yahoo.com
           echo "--- msmtp log ---"
           cat /tmp/msmtp.log
         volumeMounts:
